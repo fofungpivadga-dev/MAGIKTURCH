@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import type { PortfolioItem } from '../types';
 import { useTranslation } from '../lib/translations';
 import ImageLightbox from './ImageLightbox';
+import { FaFolder } from 'react-icons/fa';
 
 interface PortfolioGalleryProps {
   items: PortfolioItem[];
@@ -12,6 +13,7 @@ interface PortfolioGalleryProps {
 export default function PortfolioGallery({ items, albums }: PortfolioGalleryProps) {
   const { t } = useTranslation();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [activeAlbumId, setActiveAlbumId] = useState<string | null>(null);
 
   if (!items || items.length === 0) {
     return (
@@ -21,49 +23,82 @@ export default function PortfolioGallery({ items, albums }: PortfolioGalleryProp
     );
   }
 
-  const lightboxImages = items.map(item => ({ imageUrl: item.imageUrl, title: item.title || item.caption }));
+  const albumEntries = albums ? Object.entries(albums) : [];
+  const filteredItems = activeAlbumId === null ? items : items.filter(i => i.albumId === activeAlbumId);
+  const lightboxImages = filteredItems.map(item => ({ imageUrl: item.imageUrl, title: item.title || item.caption }));
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="group relative rounded-xl overflow-hidden bg-surface-light aspect-square cursor-pointer"
-            onClick={() => setLightboxIndex(index)}
+      {albumEntries.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-5">
+          <button
+            onClick={() => setActiveAlbumId(null)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-ring ${activeAlbumId === null ? 'bg-accent text-dark' : 'bg-accent/10 text-text-muted hover:bg-accent/20'}`}
           >
-            <img
-              src={item.imageUrl}
-              alt={item.title || item.caption}
-              className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
-            />
-            {item.albumId && albums?.[item.albumId] && (
-              <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#0B0B0D]/50 text-white text-[10px] font-medium backdrop-blur-sm">
-                {albums[item.albumId]}
-              </span>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-              <div>
-                {item.title && (
-                  <h4 className="font-semibold text-white text-sm">{item.title}</h4>
-                )}
-                {item.caption && (
-                  <p className="text-white/80 text-xs mt-1">{item.caption}</p>
-                )}
+            {t('portfolio.allAlbums')} ({items.length})
+          </button>
+          {albumEntries.map(([id, name]) => {
+            const count = items.filter(i => i.albumId === id).length;
+            if (count === 0) return null;
+            return (
+              <button
+                key={id}
+                onClick={() => setActiveAlbumId(activeAlbumId === id ? null : id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-ring ${activeAlbumId === id ? 'bg-accent text-dark' : 'bg-accent/10 text-text-muted hover:bg-accent/20'}`}
+              >
+                <FaFolder size={10} />
+                {name} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {filteredItems.length === 0 ? (
+        <div className="text-center py-12 text-text-muted">
+          <p>{t('portfolio.empty')}</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="group relative rounded-xl overflow-hidden bg-surface-light aspect-square cursor-pointer"
+              onClick={() => setLightboxIndex(index)}
+            >
+              <img
+                src={item.imageUrl}
+                alt={item.title || item.caption}
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+              />
+              {item.albumId && albums?.[item.albumId] && (
+                <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#0B0B0D]/50 text-white text-[10px] font-medium backdrop-blur-sm">
+                  {albums[item.albumId]}
+                </span>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <div>
+                  {item.title && (
+                    <h4 className="font-semibold text-white text-sm">{item.title}</h4>
+                  )}
+                  {item.caption && (
+                    <p className="text-white/80 text-xs mt-1">{item.caption}</p>
+                  )}
+                </div>
               </div>
-            </div>
-            {item.isBeforeAfter && (
-              <span className="absolute top-2 left-2 px-2 py-1 rounded bg-accent/90 text-xs font-semibold text-white">
-                {t('project.beforeAfter')}
-              </span>
-            )}
-          </motion.div>
-        ))}
-      </div>
+              {item.isBeforeAfter && (
+                <span className="absolute top-2 left-2 px-2 py-1 rounded bg-accent/90 text-xs font-semibold text-white">
+                  {t('project.beforeAfter')}
+                </span>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {lightboxIndex !== null && (
         <ImageLightbox
