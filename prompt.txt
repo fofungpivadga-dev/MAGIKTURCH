@@ -1,92 +1,47 @@
-Redesign my entire website with a premium luxury architectural style inspired by high-end real estate brands.
+I need you to add Google Search Console HTML verification to my existing website.
+The website is currently deployed at:
+https://magikturch.vercel.app/
+Google Search Console has provided me with an HTML verification file. I need you to add this verification file to my website correctly without changing, breaking, redesigning, or removing any existing functionality.
 
-Use this exact color system:
+What you need to do
 
-PRIMARY BRAND COLOR:
-- Deep Forest Green: #1F4D3B
-Use this as the main background color for the hero section, navigation bar, footer, and major dark sections.
+Locate the project's public folder.
 
-ACCENT COLOR:
-- Warm Cream: #FDFAD0
-Use this for primary call-to-action buttons, highlights, important text, badges, and premium elements.
+Add the Google verification HTML file directly inside the public folder.
 
-SECONDARY COLOR:
-- Warm Beige Gray: #7F7863
-Use this for cards, secondary sections, testimonials, property boxes, and supporting UI elements.
+The verification file must remain at the root of the deployed website, so that Google can access it at:
 
-WHITE:
-- Pure White: #FFFFFF
-Use for clean sections, backgrounds, and contrast areas.
+https://magikturch.vercel.app/[EXACT-GOOGLE-FILENAME].html
 
-DESIGN STYLE:
-Create a luxury, modern, minimal, premium interface with:
-- Large bold typography
-- Elegant spacing
-- High-end real estate aesthetic
-- Clean architectural feeling
-- Strong contrast between dark green backgrounds and cream highlights
-- Smooth animations
-- Glassmorphism effects
-- Rounded premium cards
-- Soft shadows
-- Subtle borders
-- Modern professional layout
+Use the exact filename and exact contents of the HTML verification file I provide/downloaded from Google Search Console. Do not rename, modify, recreate, or generate a different verification file.
 
-NAVIGATION BAR:
-- Use a dark forest green background (#1F4D3B)
-- White navigation text
-- Active menu items highlighted with cream (#FDFAD0)
-- Add a premium glass effect with slight transparency and blur
+If the project does not currently have a public folder, create one in the correct location for the framework being used.
 
-HERO SECTION:
-- Background: #1F4D3B
-- Large headline text: #FDFAD0
-- Supporting paragraph: #FFFFFF with slight opacity
-- Primary button: cream background (#FDFAD0) with dark green text (#1F4D3B)
-- Secondary button: transparent background with cream border and cream text
-- Add modern architectural imagery with luxury presentation
-- Use floating cards and elegant UI blocks similar to premium property websites
+Make sure the file is included in the production build and is accessible publicly without authentication, login, redirects, or JavaScript routing interfering with it.
 
-BUTTON STYLE:
-Primary button:
-- Background: #FDFAD0
-- Text: #1F4D3B
-- Rounded corners
-- Premium hover animation
+Do not change the existing website design, pages, database, authentication, APIs, SEO settings, or other functionality unless absolutely necessary for this verification.
 
-Secondary button:
-- Transparent background
-- Border: #FDFAD0
-- Text: #FDFAD0
+Deploy the updated website to Vercel.
 
-CARDS AND COMPONENTS:
-- Use #7F7863 for highlighted cards
-- Add glass panels using:
-  rgba(255,255,255,0.08)
-- Add backdrop blur effects
-- Use subtle cream borders
-- Add soft luxury shadows
+After deployment, verify that the file is publicly accessible by opening the exact URL:
 
-TYPOGRAPHY:
-- Headings: bold, large, modern, premium
-- Body text: clean and readable
-- Use elegant spacing and hierarchy
+https://magikturch.vercel.app/[EXACT-GOOGLE-FILENAME].html
 
-SECTION COLORS:
-Hero:
-#1F4D3B
+Confirm that the URL returns the actual Google verification file contents with a successful HTTP response, rather than a 404 page or the website homepage.
 
-Light sections:
-#FFFFFF
+Important
 
-Premium highlight sections:
-#FDFAD0
+Do not simply tell me how to do this. Actually make the required change in my project.
+If you need the Google verification file from me, ask me to upload the downloaded .html file from Google Search Console. Once I provide it, use that exact file.
+Do not delete the verification file after verification succeeds. It must remain permanently available because Google may check it again later.
+After completing the task, tell me:
 
-Cards:
-#7F7863
+The exact filename that was added.
 
-Footer:
-#1F4D3B
+Where it was placed in the project.
 
-OVERALL FEEL:
-The final website should feel like a luxury real estate platform, premium SaaS product, or high-end architectural company website. Make it visually impressive, elegant, modern, and trustworthy while maintaining a clean professional user experience.
+The exact public URL where Google can access it.
+
+Whether the deployment was successful.
+
+Whether you confirmed that the verification URL returns the file correctly.
